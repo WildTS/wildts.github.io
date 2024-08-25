@@ -2,25 +2,23 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Calc</title>
     <style>
         body {
-            background-image: url('background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-color: #000; /* Упростим фон для ускорения загрузки */
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
             color: white;
+            -webkit-tap-highlight-color: rgba(0,0,0,0); /* Убираем выделение при тапах */
+            overflow-x: hidden; /* Убираем горизонтальную прокрутку */
         }
         .container {
-            max-width: 500px;
-            margin: 50px auto;
+            max-width: 100%; /* Максимально используем доступную ширину */
+            margin: 20px auto;
             background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
@@ -28,9 +26,10 @@
             text-align: center;
             color: #ffc107;
             margin-bottom: 20px;
+            font-size: 20px; /* Уменьшим размер для удобства чтения на маленьких экранах */
         }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Уменьшим отступы */
         }
         label {
             display: block;
@@ -45,6 +44,7 @@
             border-radius: 4px;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
+            font-size: 16px; /* Чуть уменьшим размер шрифта */
         }
         input:focus {
             border-color: #ffc107;
@@ -110,28 +110,23 @@
 
     <script>
         function calculate() {
-            // Получаем значения из полей
             const buyPrice = parseFloat(document.getElementById('buy_price').value);
             const sellPrice = parseFloat(document.getElementById('sell_price').value);
             const buyFee = parseFloat(document.getElementById('buy_fee').value) / 100;
             const sellFee = parseFloat(document.getElementById('sell_fee').value) / 100;
             const turnover = parseFloat(document.getElementById('turnover').value);
 
-            // Вычисляем цену с учетом комиссии
             const buyPriceWithFee = buyPrice * (1 + buyFee);
             const sellPriceWithFee = sellPrice * (1 - sellFee);
 
-            // Вычисляем спред и профит
             const spread = ((sellPriceWithFee - buyPriceWithFee) / buyPriceWithFee) * 100;
             const profit = (spread / 100) * turnover;
 
-            // Выводим результаты
             document.getElementById('buy_price_with_fee').textContent = buyPriceWithFee.toFixed(2);
             document.getElementById('sell_price_with_fee').textContent = sellPriceWithFee.toFixed(2);
             document.getElementById('spread').textContent = spread.toFixed(2);
             document.getElementById('profit').textContent = profit.toFixed(2);
 
-            // Показываем блок с результатами
             document.getElementById('output-group').style.display = 'block';
         }
     </script>
